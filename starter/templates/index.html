@@ -3,16 +3,62 @@
 <head>
   <meta charset="utf-8">
   <title>Sudoku Game</title>
+  <script>
+    (() => {
+      const savedTheme = localStorage.getItem('sudokuTheme');
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : systemTheme;
+    })();
+  </script>
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <h1>Sudoku Game</h1>
+  <header class="page-header">
+    <h1>Sudoku Game</h1>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
+      Switch to dark mode
+    </button>
+  </header>
+  <label for="difficulty">Difficulty:</label>
+  <select id="difficulty">
+    <option value="easy">Easy</option>
+    <option value="medium" selected>Medium</option>
+    <option value="hard">Hard</option>
+  </select>
+  <div id="timer" aria-label="Elapsed time">00:00</div>
   <div id="sudoku-board"></div>
   <div class="controls">
     <button id="new-game">New Game</button>
     <button id="check-solution">Check Solution</button>
+    <button id="hint">Hint</button>
     <span id="message"></span>
   </div>
-  <script src="/static/main.js"></script>
+  <section id="leaderboard" aria-labelledby="leaderboard-heading">
+    <h2 id="leaderboard-heading">Top 10 Times</h2>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Name</th>
+          <th scope="col">Time</th>
+          <th scope="col">Difficulty</th>
+          <th scope="col">Hints</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-body"></tbody>
+    </table>
+  </section>
+  <dialog id="name-dialog" aria-labelledby="name-dialog-heading">
+    <form id="name-form" method="dialog">
+      <h2 id="name-dialog-heading">Save your score</h2>
+      <label for="player-name">Name</label>
+      <input id="player-name" name="playerName" type="text" maxlength="40" required>
+      <div>
+        <button value="cancel">Cancel</button>
+        <button value="save">Save</button>
+      </div>
+    </form>
+  </dialog>
+  <script type="module" src="/static/main.js"></script>
 </body>
 </html>
