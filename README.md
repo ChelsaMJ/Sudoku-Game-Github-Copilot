@@ -54,8 +54,8 @@ The active puzzle and solution are held in server memory for the current applica
 
 ```text
 starter/
-├── app.py                      Flask routes and request validation
-├── sudoku_logic.py             Puzzle generation and solution validation
+├── app.py                       Flask routes and request validation
+├── sudoku_logic.py              Puzzle generation and solution validation
 ├── requirements.txt             Python dependencies
 ├── templates/index.html         Game page markup
 ├── static/
